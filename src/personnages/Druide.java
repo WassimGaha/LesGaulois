@@ -17,7 +17,7 @@ public class Druide {
 	public String getNom() {
 		return nom;
 	}
-	private void parler(String texte) {
+	public void parler(String texte) {
 		System.out.println(prendreParole() + "<< " + texte + " >>");
 	}
 	public void preparerPotion() {
@@ -29,11 +29,15 @@ public class Druide {
 			System.out.println("Je n'ai pas trouvé tous les ingrédients, ma potion est seulement de force " + forcePotion);
 		}
 	}
-	private String prendreParole() {
+	public String prendreParole() {
 		return "Le druide " + nom + " : ";
 	}
 	public void booster(Gaulois gaulois) {
-		
+		if (gaulois.getNom() == "Obélix") {
+			parler("Non, Obélix !... Tu n'auras pas de potion magique !");
+		} else {
+			gaulois.boirePotion(forcePotion);
+		}
 	}
 	public static void main(String[] args) {
 		Druide panoramix = new Druide("Panoramix", 5, 10);
