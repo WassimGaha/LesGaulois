@@ -7,7 +7,7 @@ public class Romain {
 	private int nbEquipement = 0;
 
 	public Romain(String nom, int force) {
-		assert force > 0;
+		assert verifierForcePositive();
 		this.nom = nom;
 		this.force = force;
 	}
@@ -29,17 +29,19 @@ public class Romain {
 			if (equipements[0].equals(eq)) {
 				System.out.println("Le soldat " + nom + " possède déjà un " + eq + ".");
 			} else {
-				System.out.println("Le soldat " + nom + " s'équipe avec un " + eq + ".");
-				equipements[1] = eq;
-				nbEquipement++;
+				ajouterEquipement(eq);
 			}
 			break;
 		default:
-			System.out.println("Le soldat " + nom + " s'équipe avec un " + eq + ".");
-			equipements[0] = eq;
-			nbEquipement++;
+			ajouterEquipement(eq);
 			break;
 		}
+	}
+
+	private void ajouterEquipement(Equipement eq) {
+		System.out.println("Le soldat " + nom + " s'équipe avec un " + eq + ".");
+		equipements[nbEquipement] = eq;
+		nbEquipement++;
 	}
 
 	private String prendreParole() {
@@ -47,18 +49,26 @@ public class Romain {
 	}
 
 	public void recevoirCoup(int forceCoup) {
-		assert force >= 0;
+		assert verifierForcePositive();
 		int forceInit = force;
 		force -= forceCoup;
-		assert forceInit < force;
+		assert verifierForcePositive();
+		assert verifierForceDiminue(forceInit);
 		if (force > 0) {
 			parler("Aïe");
 		} else {
 			parler("J'abandonne...");
 		}
-
 	}
 
+	private boolean verifierForceDiminue(int forceInit) {
+		return forceInit < force;
+	}
+
+	private boolean verifierForcePositive() {
+		return force >= 0;
+	}
+	
 	public static void main(String[] args) {
 		Romain minus = new Romain("Minus", 6);
 		minus.sEquiper(Equipement.CASQUE);
