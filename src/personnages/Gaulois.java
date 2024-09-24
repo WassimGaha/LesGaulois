@@ -25,7 +25,7 @@ public class Gaulois {
 		romain.recevoirCoup((force/3)*effetPotion);
 	}
 	public void boirePotion(int force) {
-		this.effetPotion = force;
+		effetPotion = force;
 		parler("Merci Druide, je sens que ma force est " + force + " fois décuplée.");
 	}
 	@Override
